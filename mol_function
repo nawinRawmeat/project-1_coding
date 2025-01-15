@@ -1,0 +1,5 @@
+def mol_function(G,Mw):
+    mol = G/Mw
+    print('Mol is','%.2f' %mol, '.g')
+
+mol_function(20.81,2.13)
