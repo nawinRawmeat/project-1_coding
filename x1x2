@@ -1,0 +1,80 @@
+import tkinter as tk
+from tkinter import messagebox
+
+def calculate_slope():
+    try:
+        # Get input values from the user
+        x1 = float(entry_x1.get())
+        y1 = float(entry_y1.get())
+        x2 = float(entry_x2.get())
+        y2 = float(entry_y2.get())
+        
+        # Check if the line is vertical (x1 == x2)
+        if x2 - x1 == 0:
+            messagebox.showinfo("Error", "ไม่สามารถคำนวณสโลปได้เนื่องจาก x1 เท่ากับ x2")
+            return
+        
+        # Calculate the slope
+        M = (y2 - y1) / (x2 - x1)
+        
+        # Display the result
+        result_label.config(text=f"ค่า M (Slope) คือ: {M}")
+        
+        # Classify the slope based on its value
+        if M == 0:
+            classification_label.config(text=f"{M} เนื่องจาก M มีค่าเท่ากับ 0 ดังนั้นจึงเป็นเส้นขนาน")
+        elif M == -1:
+            classification_label.config(text=f"{M} เนื่องจาก M มีค่าเท่ากับ -1 ดังนั้นจึงเป็นมุมฉาก")
+        elif M < -1:
+            classification_label.config(text=f"{M} เนื่องจาก M มีค่าน้อยกว่า -1 ดังนั้นจึงเป็นมุมป้าน")
+        elif M > 1:
+            classification_label.config(text=f"{M} เนื่องจาก M มีค่ามากกว่า 1 ดังนั้นจึงเป็นมุมแหลม")
+        else:
+            classification_label.config(text=f"{M} สโลปเป็นค่าที่ปกติ")
+    
+    except ValueError:
+        messagebox.showerror("Input Error", "กรุณาใส่ตัวเลขให้ถูกต้อง")
+
+# Create the main window
+window = tk.Tk()
+window.title("คำนวณสโลป (Slope)")
+
+# Create labels and entries for user input
+label_x1 = tk.Label(window, text="กรุณาใส่ตัวเลขแทนค่าใน X1: ")
+label_x1.grid(row=0, column=0, padx=10, pady=5)
+
+entry_x1 = tk.Entry(window)
+entry_x1.grid(row=0, column=1, padx=10, pady=5)
+
+label_y1 = tk.Label(window, text="กรุณาใส่ตัวเลขแทนค่าใน Y1: ")
+label_y1.grid(row=1, column=0, padx=10, pady=5)
+
+entry_y1 = tk.Entry(window)
+entry_y1.grid(row=1, column=1, padx=10, pady=5)
+
+label_x2 = tk.Label(window, text="กรุณาใส่ตัวเลขแทนค่าใน X2: ")
+label_x2.grid(row=2, column=0, padx=10, pady=5)
+
+entry_x2 = tk.Entry(window)
+entry_x2.grid(row=2, column=1, padx=10, pady=5)
+
+label_y2 = tk.Label(window, text="กรุณาใส่ตัวเลขแทนค่าใน Y2: ")
+label_y2.grid(row=3, column=0, padx=10, pady=5)
+
+entry_y2 = tk.Entry(window)
+entry_y2.grid(row=3, column=1, padx=10, pady=5)
+
+# Button to calculate slope
+calculate_button = tk.Button(window, text="คำนวณสโลป", command=calculate_slope)
+calculate_button.grid(row=4, columnspan=2, pady=10)
+
+# Label to display the result
+result_label = tk.Label(window, text="ค่า M (Slope) คือ: ")
+result_label.grid(row=5, columnspan=2, pady=5)
+
+# Label to display the classification of the slope
+classification_label = tk.Label(window, text="")
+classification_label.grid(row=6, columnspan=2, pady=5)
+
+# Run the application
+window.mainloop()
